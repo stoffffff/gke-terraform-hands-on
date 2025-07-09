@@ -8,7 +8,7 @@ on:
 env:
   PROJECT_ID: cybersapient
   CLUSTER_NAME: cool-k8s-cluster
-  CLUSTER_ZONE: europe-west1-b
+  CLUSTER_ZONE: us-central1-b
   REPO_NAME: react-app
   IMAGE: europe-west1-docker.pkg.dev/cybersapient/react-app/frontend-app
 
