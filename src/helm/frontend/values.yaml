@@ -1,0 +1,8 @@
+image:
+  repository: europe-west1-docker.pkg.dev/cybersapient/react-app
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
