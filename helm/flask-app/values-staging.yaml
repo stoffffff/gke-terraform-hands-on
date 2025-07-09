@@ -1,9 +1,0 @@
-replicaCount: 1
-
-image:
-  tag: staging
-
-resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi

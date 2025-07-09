@@ -1,9 +1,0 @@
-replicaCount: 0
-
-image:
-  tag: production
-
-resources:
-  limits:
-    cpu: 500m
-    memory: 512Mi
