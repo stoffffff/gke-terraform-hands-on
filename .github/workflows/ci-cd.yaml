@@ -1,4 +1,4 @@
-name: Cool React Pipeline
+name: Cool react Pipeline
 
 on:
   push:
@@ -7,9 +7,10 @@ on:
 
 env:
   PROJECT_ID: cybersapient
-  CLUSTER_NAME: cool-k8s-cluster
+  CLUSTER_NAME: cool-gke-cluster
   CLUSTER_ZONE: europe-west1-b
-  IMAGE: europe-west1-docker.pkg.dev/cybersapient/react-app/frontend
+  REPO_NAME: react-app
+  IMAGE: europe-west1-docker.pkg.dev/cybersapient/react-app/frontend-app
 
 jobs:
   build-and-deploy:
@@ -27,15 +28,16 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-    - name: Configure Docker
-      run: gcloud auth configure-docker
+    - name: Configure Docker to push to Artifact Registry
+      run: |
+        gcloud auth configure-docker europe-west1-docker.pkg.dev
 
     - name: Build and Push Docker Image
       run: |
         docker build -t $IMAGE:${{ github.sha }} .
         docker push $IMAGE:${{ github.sha }}
 
-    - name: Set up gcloud and kubectl
+    - name: Set up gcloud CLI and kubectl
       uses: google-github-actions/setup-gcloud@v2
       with:
         project_id: ${{ env.PROJECT_ID }}
@@ -47,7 +49,7 @@ jobs:
     - name: Set up Helm
       uses: azure/setup-helm@v4
 
-    - name: Deploy with Helm
+    - name: Deploy via Helm
       run: |
         helm upgrade --install frontend ./helm/frontend \
           --set image.repository=$IMAGE \
