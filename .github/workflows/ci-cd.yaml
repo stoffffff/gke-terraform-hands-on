@@ -54,3 +54,6 @@ jobs:
         helm upgrade --install frontend ./helm/frontend \
           --set image.repository=$IMAGE \
           --set image.tag=${{ github.sha }}
+
+
+    #trigger 1
